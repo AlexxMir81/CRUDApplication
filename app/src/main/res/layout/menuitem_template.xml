@@ -26,7 +26,7 @@
         android:id="@+id/composition_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="composition"
+     
         android:layout_below="@id/name_text"
         android:layout_centerHorizontal="true"
         android:textSize="15dp"/>

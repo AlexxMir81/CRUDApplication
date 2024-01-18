@@ -53,7 +53,7 @@ public class MenuItemAdapter extends BaseAdapter {
 
         MenuItem menuItem = data.get(position);
         name.setText(menuItem.getName());
-        weight.setText(menuItem.getWeight());
+        weight.setText(String.valueOf(menuItem.getWeight()));
         composition.setText(menuItem.getComposition());
         menuImage.setImageResource(menuItem.getMenuImage());
         return rowView;
