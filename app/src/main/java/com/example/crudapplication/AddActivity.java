@@ -78,8 +78,7 @@ public class AddActivity extends AppCompatActivity {
     }
     public void BackMainActivity(View view) {
         Intent intent = new Intent();
-       // intent.putExtra("count",count);
-        setResult(200,intent);
+        setResult(RESULT_CANCELED,intent);
         finish();
     }
     public void SaveAddActivity(View view) {
@@ -87,11 +86,11 @@ public class AddActivity extends AppCompatActivity {
            Toast.makeText(AddActivity.this, "Введите все значения!", Toast.LENGTH_LONG).show();
        }else{
            Intent intent = new Intent();
-           intent.putExtra("name", name.getText());
-           intent.putExtra("weight", weight.getText());
-           intent.putExtra("composition", composition.getText());
+           intent.putExtra("name", name.getText().toString());
+           intent.putExtra("weight", weight.getText().toString());
+           intent.putExtra("composition", composition.getText().toString());
            intent.putExtra("image", data.get(spinner.getSelectedItemPosition()));
-           setResult(200,intent);
+           setResult(RESULT_OK,intent);
            finish();
        }
     }

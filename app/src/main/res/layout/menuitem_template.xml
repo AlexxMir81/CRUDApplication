@@ -6,6 +6,24 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:text="X"
+        android:textSize="10pt" />
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:layout_below="@id/delete_button"
+        android:text="edit"
+        android:textSize="8pt" />
     <ImageView
         android:id="@+id/img_view"
         android:src="@drawable/ic_launcher_background"
@@ -13,30 +31,32 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:scaleType="fitCenter"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginEnd="15dp"/>
     <TextView
         android:id="@+id/name_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name"
+        android:layout_marginStart="20dp"
         android:layout_below="@id/img_view"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"/>
+        android:textSize="20sp"/>
     <TextView
         android:id="@+id/composition_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-     
+        android:layout_marginStart="20dp"
         android:layout_below="@id/name_text"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp"/>
+        android:textSize="15sp"/>
     <TextView
         android:id="@+id/weight_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="weight"
         android:layout_below="@id/composition_text"
         android:layout_centerHorizontal="true"
-        android:textSize="25dp"/>
+        android:textSize="25sp"/>
 </RelativeLayout>
 </androidx.cardview.widget.CardView>
