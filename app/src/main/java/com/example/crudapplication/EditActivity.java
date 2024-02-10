@@ -20,7 +20,7 @@ public class EditActivity extends AppCompatActivity {
     private EditText weight;
     private EditText composition;
     private List<Integer> data;
-    private int image;
+    private int dbId;
     Spinner spinner;
     private int position;
     @Override
@@ -40,6 +40,7 @@ public class EditActivity extends AppCompatActivity {
         spinner = findViewById(R.id.image_select);
 
         Intent intent = getIntent();
+        dbId = intent.getIntExtra("dbId", 0);
         name.setText(intent.getStringExtra("name"));
         weight.setText(String.valueOf(intent.getIntExtra("weight",0)));
         composition.setText(intent.getStringExtra("composition"));
@@ -79,6 +80,7 @@ public void SaveEditActivity(View view) {
         Toast.makeText(EditActivity.this, "Введите все значения!", Toast.LENGTH_LONG).show();
     }else{
         Intent intent = new Intent();
+        intent.putExtra("dbId", dbId);
         intent.putExtra("name", name.getText().toString());
         intent.putExtra("weight", weight.getText().toString());
         intent.putExtra("composition", composition.getText().toString());

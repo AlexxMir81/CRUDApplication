@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,18 +41,21 @@ public class MainActivity extends AppCompatActivity {
 //        list.add(new MenuItem("Суши горячие", 300, "Рис, нури, угорь", R.drawable.sushi2));
 
         dbHelper = new DbHelper(this);
-        if (dbHelper.getAll() == null) {
+        if (dbHelper.getAll().size() <= 1) {
             dbHelper.addMenuItem(new MenuItem("Пицца грибная", 300, "Грибы, курица, сыр", R.drawable.pizza1));
             dbHelper.addMenuItem(new MenuItem("Пицца деликатесная", 400, "курица, сыр, помидоры", R.drawable.pizza2));
             dbHelper.addMenuItem(new MenuItem("Пицца Пеперони", 350, "колабаса, сыр, помидоры", R.drawable.pizza3));
             dbHelper.addMenuItem(new MenuItem("Суши терияки", 300, "Рис, нури, лосоь", R.drawable.sushi1));
             dbHelper.addMenuItem(new MenuItem("Суши горячие", 300, "Рис, нури, угорь", R.drawable.sushi2));
         }
-
-        listView.setAdapter(itemAdapter);
+        Log.i("CRUD_DbHelper", "beforeCreateAdapter ");
         list = dbHelper.getAll();
-        Toast.makeText((Context) this, String.valueOf(list.size()), Toast.LENGTH_LONG).show();
         itemAdapter = new MenuItemAdapter(this, list, R.layout.menuitem_template);
+        listView.setAdapter(itemAdapter);
+        Log.i("CRUD_DbHelper", "after Call " +list.size());
+        Log.i("CRUD_DbHelper", "after Call " +list.toString());
+
+
         Button addButton = findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
             itemAdapter.notifyDataSetChanged();
         } else if (resultCode == RESULT_OK && data !=null && requestCode == 3){
             int index = data.getIntExtra("position",0);
+            Log.i("CRUD_DbHelper", "on edit:" +data.getIntExtra("dbId", 0));
             list.set(index, createItem(data));
+            Log.i("CRUD_DbHelper", "after edit id:" +list.get(index).getId() +" index:" +index);
             dbHelper.updateMenuItem(list.get(index));
             itemAdapter.notifyDataSetChanged();
         }
@@ -84,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     public MenuItem createItem(@Nullable Intent data){
        // MenuItem newItem = new MenuItem();
         MenuItem newItem = new MenuItem(
+                data.getIntExtra("dbId", 0),
                 data.getStringExtra("name"),
                 Integer.parseInt(data.getStringExtra("weight")),
                 data.getStringExtra("composition"),

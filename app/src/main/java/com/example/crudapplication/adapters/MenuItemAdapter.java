@@ -5,6 +5,7 @@ import static androidx.core.app.ActivityCompat.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.crudapplication.AddActivity;
 import com.example.crudapplication.EditActivity;
 import com.example.crudapplication.R;
 import com.example.crudapplication.models.MenuItem;
+import com.example.crudapplication.utils.DbHelper;
 
 import java.util.List;
 
@@ -81,12 +83,16 @@ public class MenuItemAdapter extends BaseAdapter {
         composition.setText(menuItem.getComposition());
         menuImage.setImageResource(menuItem.getMenuImage());
 
+        DbHelper dbHelper = new DbHelper(context);
 
         convertView.setTag(holder);
         holder.delButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dbHelper.deleteMenuItem(data.get(position));
                 data.remove(position);
+
+
                 notifyDataSetChanged();
             }
         });
@@ -95,6 +101,8 @@ public class MenuItemAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditActivity.class);
                 intent.putExtra("position", position);
+                intent.putExtra("dbId", menuItem.getId());
+                Log.i("CRUD_DbHelper", "edit in method id:" + menuItem.getId());
                 intent.putExtra("name",menuItem.getName());
                 intent.putExtra("weight",menuItem.getWeight());
                 intent.putExtra("image", menuItem.getMenuImage());

@@ -25,11 +25,6 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String COLUMN_COMPOSITION = "composition";
     private static final String COLUMN_MENUIMAGE = "menuImage";
 
-    private final String CREATE_MENUITEMS_SCRIPT = "CREATE TABLE " +
-            TABLE_MENUITEMS + " ( " + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-            COLUMN_NAME + " TEXT NOT NULL , " + COLUMN_weight + " INTEGER NOT NULL , " +
-            COLUMN_COMPOSITION + " TEXT NOT NULL , " + COLUMN_MENUIMAGE + " INTEGER NOT NULL )";
-
     public boolean addMenuItem(MenuItem menuItem){
         try {
             SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -56,7 +51,7 @@ public class DbHelper extends SQLiteOpenHelper {
             values.put(COLUMN_weight, menuItem.getWeight());
             values.put(COLUMN_COMPOSITION, menuItem.getComposition());
             values.put(COLUMN_MENUIMAGE, menuItem.getMenuImage());
-            int result = sqLiteDatabase.update(TABLE_MENUITEMS, values, COLUMN_ID + " = ?",
+            int result = sqLiteDatabase.update(TABLE_MENUITEMS, values, COLUMN_ID + " = ? ",
                     new String[]{String.valueOf(menuItem.getId())});
             sqLiteDatabase.close();
             return result;
@@ -124,6 +119,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String CREATE_MENUITEMS_SCRIPT = "CREATE TABLE " +
+                TABLE_MENUITEMS + " ( " + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                COLUMN_NAME + " TEXT NOT NULL , " + COLUMN_weight + " INTEGER NOT NULL , " +
+                COLUMN_COMPOSITION + " TEXT NOT NULL , " + COLUMN_MENUIMAGE + " INTEGER NOT NULL )";
         db.execSQL(CREATE_MENUITEMS_SCRIPT);
     }
 
